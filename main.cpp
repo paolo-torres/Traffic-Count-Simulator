@@ -344,4 +344,4 @@ void drawCarCountOnImage(int &carCount, Mat &imgFrame2Copy) {
 
 	putText(imgFrame2Copy, to_string(carCount), TextBottomLeftPosition, FontFace, FontScale, SCALAR_GREEN, FontThickness);
 
-}
+} 
