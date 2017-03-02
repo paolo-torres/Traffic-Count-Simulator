@@ -9,28 +9,18 @@ using namespace std;
 using namespace cv;
 
 class Blob {
-public:
-
-	vector<Point> currentContour;
-
-	Rect currentBoundingRect;
-
-	vector<Point> centerPositions;
-
-	double CurrentDiagonalSize;
-	double CurrentAspectRatio;
-
-	bool CurrentMatchFoundOrNewBlob;
-
-	bool StillBeingTracked;
-
-	int NumOfConsecutiveFramesWithoutAMatch;
-
-	Point predictedNextPosition;
-
-	Blob(vector<Point> _contour);
-	void predictNextPosition(void);
-
+	public:
+		vector<Point> currentContour;
+		Rect currentBoundingRect;
+		vector<Point> centerPositions;
+		double CurrentDiagonalSize;
+		double CurrentAspectRatio;
+		bool CurrentMatchFoundOrNewBlob;
+		bool StillBeingTracked;
+		int NumOfConsecutiveFramesWithoutAMatch;
+		Point predictedNextPosition;
+		Blob(vector<Point> _contour);
+		void predictNextPosition(void);
 };
 
 #endif
