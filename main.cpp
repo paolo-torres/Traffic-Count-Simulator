@@ -15,15 +15,26 @@ const Scalar SCALAR_WHITE = Scalar(255.0, 255.0, 255.0);
 const Scalar SCALAR_GREEN = Scalar(0.0, 255.0, 0.0);
 const Scalar SCALAR_RED = Scalar(0.0, 0.0, 255.0);
 
-void matchCurrentFrameBlobsToExistingBlobs(vector<Blob> &existingBlobs, vector<Blob> &currentFrameBlobs);
-void addBlobToExistingBlobs(Blob &currentFrameBlob, vector<Blob> &existingBlobs, int &intIndex);
-void addNewBlob(Blob &currentFrameBlob, vector<Blob> &existingBlobs);
-double distanceBetweenPoints(Point point1, Point point2);
-void drawAndShowContours(Size imageSize, vector<vector<Point> > contours, string strImageName);
-void drawAndShowContours(Size imageSize, vector<Blob> blobs, string strImageName);
-bool checkIfBlobsCrossedTheLine(vector<Blob> &blobs, int &HorizontalLinePosition, int &carCount);
-void drawBlobInfoOnImage(vector<Blob> &blobs, Mat &imgFrame2Copy);
-void drawCarCountOnImage(int &carCount, Mat &imgFrame2Copy);
+double distanceBetweenPoints(Point point1, Point point2) {
+	int intX = abs(point1.x - point2.x);
+	int intY = abs(point1.y - point2.y);
+	return (sqrt(pow(intX, 2) + pow(intY, 2)));
+}
+
+void addBlobToExistingBlobs(Blob &currentFrameBlob, vector<Blob> &existingBlobs, int &intIndex) {
+	existingBlobs[intIndex].currentContour = currentFrameBlob.currentContour;
+	existingBlobs[intIndex].currentBoundingRect = currentFrameBlob.currentBoundingRect;
+	existingBlobs[intIndex].centerPositions.push_back(currentFrameBlob.centerPositions.back());
+	existingBlobs[intIndex].CurrentDiagonalSize = currentFrameBlob.CurrentDiagonalSize;
+	existingBlobs[intIndex].CurrentAspectRatio = currentFrameBlob.CurrentAspectRatio;
+	existingBlobs[intIndex].StillBeingTracked = true;
+	existingBlobs[intIndex].CurrentMatchFoundOrNewBlob = true;
+}
+
+void addNewBlob(Blob &currentFrameBlob, vector<Blob> &existingBlobs) {
+	currentFrameBlob.CurrentMatchFoundOrNewBlob = true;
+	existingBlobs.push_back(currentFrameBlob);
+}
 
 void matchCurrentFrameBlobsToExistingBlobs(vector<Blob> &existingBlobs, vector<Blob> &currentFrameBlobs) {
 	for (auto &existingBlob : existingBlobs) {
@@ -53,27 +64,6 @@ void matchCurrentFrameBlobsToExistingBlobs(vector<Blob> &existingBlobs, vector<B
 		if (existingBlob.NumOfConsecutiveFramesWithoutAMatch >= 5)
 			existingBlob.StillBeingTracked = false;
 	}
-}
-
-void addBlobToExistingBlobs(Blob &currentFrameBlob, vector<Blob> &existingBlobs, int &intIndex) {
-	existingBlobs[intIndex].currentContour = currentFrameBlob.currentContour;
-	existingBlobs[intIndex].currentBoundingRect = currentFrameBlob.currentBoundingRect;
-	existingBlobs[intIndex].centerPositions.push_back(currentFrameBlob.centerPositions.back());
-	existingBlobs[intIndex].CurrentDiagonalSize = currentFrameBlob.CurrentDiagonalSize;
-	existingBlobs[intIndex].CurrentAspectRatio = currentFrameBlob.CurrentAspectRatio;
-	existingBlobs[intIndex].StillBeingTracked = true;
-	existingBlobs[intIndex].CurrentMatchFoundOrNewBlob = true;
-}
-
-void addNewBlob(Blob &currentFrameBlob, vector<Blob> &existingBlobs) {
-	currentFrameBlob.CurrentMatchFoundOrNewBlob = true;
-	existingBlobs.push_back(currentFrameBlob);
-}
-
-double distanceBetweenPoints(Point point1, Point point2) {
-	int intX = abs(point1.x - point2.x);
-	int intY = abs(point1.y - point2.y);
-	return(sqrt(pow(intX, 2) + pow(intY, 2)));
 }
 
 void drawAndShowContours(Size imageSize, vector<vector<Point> > contours, string strImageName) {
