@@ -198,9 +198,8 @@ int main(void) {
 		imgFrame2Copy = imgFrame2.clone();
 		drawBlobInfoOnImage(blobs, imgFrame2Copy);
 		bool AtLeastOneBlobCrossedTheLine = checkIfBlobsCrossedTheLine(blobs, HorizontalLinePosition, carCount);
-		if (AtLeastOneBlobCrossedTheLine == true) {
+		if (AtLeastOneBlobCrossedTheLine == true)
 			line(imgFrame2Copy, crossingLine[0], crossingLine[1], SCALAR_GREEN, 2);
-		}
 		else
 			line(imgFrame2Copy, crossingLine[0], crossingLine[1], SCALAR_RED, 2);
 		drawCarCountOnImage(carCount, imgFrame2Copy);
