@@ -13,11 +13,11 @@ class Blob {
 		vector<Point> currentContour;
 		Rect currentBoundingRect;
 		vector<Point> centerPositions;
-		double CurrentDiagonalSize;
-		double CurrentAspectRatio;
-		bool CurrentMatchFoundOrNewBlob;
-		bool StillBeingTracked;
-		int NumOfConsecutiveFramesWithoutAMatch;
+		double currentDiagonalSize;
+		double currentAspectRatio;
+		bool currentMatchFoundOrNewBlob;
+		bool stillBeingTracked;
+		int numOfConsecutiveFramesWithoutAMatch;
 		Point predictedNextPosition;
 		Blob(vector<Point> _contour);
 		void predictNextPosition(void);
