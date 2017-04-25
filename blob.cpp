@@ -10,11 +10,11 @@ Blob::Blob(vector<Point> _contour) {
 	currentCenter.x = (currentBoundingRect.x + currentBoundingRect.x + currentBoundingRect.width) / 2;
 	currentCenter.y = (currentBoundingRect.y + currentBoundingRect.y + currentBoundingRect.height) / 2;
 	centerPositions.push_back(currentCenter);
-	CurrentDiagonalSize = sqrt(pow(currentBoundingRect.width, 2) + pow(currentBoundingRect.height, 2));
-	CurrentAspectRatio = (float)currentBoundingRect.width / (float)currentBoundingRect.height;
-	StillBeingTracked = true;
-	CurrentMatchFoundOrNewBlob = true;
-	NumOfConsecutiveFramesWithoutAMatch = 0;
+	currentDiagonalSize = sqrt(pow(currentBoundingRect.width, 2) + pow(currentBoundingRect.height, 2));
+	currentAspectRatio = (float)currentBoundingRect.width / (float)currentBoundingRect.height;
+	stillBeingTracked = true;
+	currentMatchFoundOrNewBlob = true;
+	numOfConsecutiveFramesWithoutAMatch = 0;
 }
 
 void Blob::predictNextPosition(void) {
